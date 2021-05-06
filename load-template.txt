@@ -1,0 +1,29 @@
+*CONTROL_TERMINATION
+$#  endtim    endcyc     dtmin    endeng    endmas     nosol     
+     100.0         0       0.0       0.0  1.000000E8         0
+*BOUNDARY_PRESCRIBED_MOTION_SET_ID
+$#      id                                                               heading
+         0move
+$#    nsid       dof       vad      lcid        sf       vid     death     birth
+         2        -4         0         2       1.0         1   1000000       0.0
+*BOUNDARY_PRESCRIBED_MOTION_SET_ID
+$#      id                                                               heading
+         0move
+$#    nsid       dof       vad      lcid        sf       vid     death     birth
+         1        -4         0         1       1.0         1   1000000       0.0
+*DEFINE_CURVE
+$#    lcid      sidr       sfa       sfo      offa      offo    dattyp     lcint
+         1         0       1.0       1.0       0.0       0.0         0         0
+$#                a1                  o1  
+                 0.0                -0.5e-4
+            500000.0                -0.5e-4
+*DEFINE_CURVE
+$#    lcid      sidr       sfa       sfo      offa      offo    dattyp     lcint
+         2         0       1.0       1.0       0.0       0.0         0         0
+$#                a1                  o1  
+                 0.0                 0.5e-4
+            500000.0                 0.5e-4
+*DEFINE_VECTOR_TITLE
+move
+$#     vid        xt        yt        zt        xh        yh        zh       cid
+         1       0.0       0.0       0.0       0.0       1.0       0.0         0
