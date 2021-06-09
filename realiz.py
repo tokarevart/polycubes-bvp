@@ -29,13 +29,16 @@ def run_realiz(ndir, rdir, num_thr, gpu_id):
     rdir = Path(rdir)
     os.mkdir(rdir)
 
+    with open('scale.cfg', 'r') as f:
+        scale = f.readline().strip()
+
     shutil.copytree(config_path, rdir / 'config')
     shutil.copytree(param_path, rdir / 'param')
     shutil.copy(tems_path / 'input.inp', rdir)
-    shutil.copy(tems_path / 'mklvars.sh', rdir)
 
     replace_line_in_file(rdir / 'config' / 'fem.cfg', 'NUM_THR', num_thr)
     replace_line_in_file(rdir / 'config' / 'slae.cfg', 'GPU_ID', gpu_id)
+    replace_line_in_file(rdir / 'param' / 'solstat.prm', 'SCALE', scale)
 
     runfem_path = rdir / 'runfem.sh'
     with open(runfem_path, 'w') as f:
