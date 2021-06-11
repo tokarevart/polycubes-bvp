@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 def stress_curve(ndir, r):
-    with open(Path(ndir) / ('r' + str(r)) / 'micro' / 'rvout.dat') as f:
+    with open(Path(ndir) / ('r' + str(r)) / 'micro' / 'top_layer' / 'rvout.dat') as f:
         strain_stresses = f.readlines()[1:]
     return [float(ss.split()[1]) for ss in strain_stresses]
 
