@@ -36,33 +36,27 @@ def analyze_stress(nbeg, nend, rbeg, rend):
     ft = '%20.16e'
     mean_curves = stress_mean_curves(nbeg, nend, rbeg, rend)
     print('means')
-    for curve in list(zip(*mean_curves))[::2]:
+    for curve in zip(*mean_curves):
         print('\t'.join([ft % s for s in curve]))
     print('means tr')
     for curve in mean_curves:
-        print('\t'.join([ft % s for s in curve[::2]]))
+        print('\t'.join([ft % s for s in curve]))
 
     stddev_curves = stress_stddev_curves(nbeg, nend, rbeg, rend)
     print('stddevs')
-    for curve in list(zip(*stddev_curves))[::2]:
+    for curve in zip(*stddev_curves):
         print('\t'.join([ft % s for s in curve]))
     print('stddevs tr')
     for curve in stddev_curves:
-        print('\t'.join([ft % s for s in curve[::2]]))
+        print('\t'.join([ft % s for s in curve]))
 
 
 def analyze_stress_fixn(ndir, rbeg, rend):
     rbeg, rend = int(rbeg), int(rend)
-    stresses = []
-    for r in range(rbeg, rend):
-        with open(Path(ndir) / ('r' + str(r)) / 'micro' / 'rvout.dat') as f:
-            strain_stress = f.readlines()[-1].split()
-        _, stress = float(strain_stress[0]), float(strain_stress[1])
-        stresses.append(stress)
-
-    mean = sum(stresses) / len(stresses)
-    stddev = math.sqrt(sum((s - mean)**2 for s in stresses) / (len(stresses) - 1))
-    print('%20.16e\t%20.16e' % (mean, stddev))
+    mean_curve = stress_mean_curve(ndir, rbeg, rend)
+    stddev_curve = stress_stddev_curve(ndir, rbeg, rend)
+    ft = '%20.16e'
+    print('\n'.join([(ft % m) + '\t' + (ft % d) for m, d in zip(mean_curve, stddev_curve)]))
 
 
 def main():
