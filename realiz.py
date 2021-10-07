@@ -35,7 +35,6 @@ def run_realiz(ndir, rdir, num_thr, gpu_id):
     shutil.copytree(config_path, rdir / 'config')
     shutil.copytree(param_path, rdir / 'param')
     shutil.copy(tems_path / 'input.inp', rdir)
-    shutil.copy(tems_path / 'mklvars.sh', rdir)
 
     replace_line_in_file(rdir / 'config' / 'fem.cfg', 'NUM_THR', num_thr)
     replace_line_in_file(rdir / 'config' / 'slae.cfg', 'GPU_ID', gpu_id)
@@ -56,7 +55,7 @@ def run_realiz(ndir, rdir, num_thr, gpu_id):
     runfemabs = runfem_path.absolute()
     os.chdir(rdir)
     subprocess.run([f'{runfemabs}'])
-    shutil.rmtree('d3plot')
+    shutil.rmtree('./bvp.key/d3plot')
     os.chdir(prevwd)
 
 
