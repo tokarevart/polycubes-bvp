@@ -5,9 +5,10 @@ def analyze_diameq(diameq_path, bars):
     with open(diameq_path, 'r') as f:
         diameqs = [float(d) for d in f.readlines()]
 
-    dmin, dmax = min(diameqs), max(diameqs)
+    inv_avg = len(diameqs) / sum(diameqs)
+    diameqs = [d * inv_avg for d in diameqs]
     hist = Histogram(0.0, 2.7, bars)
-    hist.add_from_list([d / dmax * 2.7 for d in diameqs])
+    hist.add_from_list([d for d in diameqs if d <= 2.7])
     hist.normalize()
 
     ft = '%20.16e'
